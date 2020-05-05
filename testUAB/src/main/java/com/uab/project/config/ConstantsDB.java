@@ -2,11 +2,11 @@ package com.uab.project.config;
 
 public class ConstantsDB {
 
-	//usuario y password base de datos test para homologación
+	//usuario y password base de datos 'test' para homologación
 	private static final String TEST_USER_HOMOLOGATION = "miguel.ayala";
-	private static final String TEST_PASSWORD_HOMOLOGATION = "password";
+	private static final String TEST_PASSWORD_HOMOLOGATION = "ojzwjyb";
 
-	//usuario y password base de datos test para producción
+	//usuario y password base de datos 'test' para producción
 	private static final String TEST_USER_PRODUCTION = "userdd";
 	private static final String TEST_PASSWORD_PRODUCTION = "pasdd";
 
