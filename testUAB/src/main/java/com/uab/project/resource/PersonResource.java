@@ -1,5 +1,7 @@
 package com.uab.project.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,4 +64,10 @@ public class PersonResource {
 		
 	}
 	
+	@GetMapping("/lista")
+	public ResponseEntity<ResponseDefault> listPerson() {
+		List<PersonDTO> list = personService.listPerson();
+		ResponseDefault responseDefault = new ResponseDefault(list, ResponseCode.OK.getInternalCode(), "Lista de persona.");
+		return new ResponseEntity<ResponseDefault>(responseDefault, HttpStatus.valueOf(ResponseCode.OK.getHttpStatus()));
+	}
 }

@@ -12,6 +12,9 @@ import com.uab.project.repository.test.PersonRepository;
 import static com.uab.project.utils.CheckObject.isNull;
 import static com.uab.project.utils.CheckObject.isNullOrEmpty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PersonService {
 
@@ -62,6 +65,16 @@ public class PersonService {
 		PersonDTO dto = new PersonDTO(person);
 		
 		return dto;
+	}
+
+	public List<PersonDTO> listPerson() {
+		List<PersonDTO> listDTO = new ArrayList<PersonDTO>();
+		List<Object[]> list = personRepository.listPerson();
+		list.forEach(object->{
+			PersonDTO p = new PersonDTO(object);
+			listDTO.add(p);
+		});
+		return listDTO;
 	}
 
 }

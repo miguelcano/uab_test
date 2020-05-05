@@ -1,5 +1,7 @@
 package com.uab.project.model.test.dto;
 
+import java.util.Date;
+
 import com.uab.project.model.test.PersonModel;
 import com.uab.project.utils.DateUtils;
 
@@ -26,7 +28,7 @@ public class PersonDTO {
 		this.id = (Integer) o[0];
 		this.firstName = (String) o[1];
 		this.lastName = (String) o[2];
-		this.birthDate = (String) o[3];
+		this.birthDate = DateUtils.dateConvert((Date) o[3], "dd/MM/yyyy");
 		this.phone = (String) o[4];
 	}
 	
