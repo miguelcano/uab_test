@@ -4,7 +4,7 @@ public class ConstantsDB {
 
 	//usuario y password base de datos 'test' para homologación
 	private static final String TEST_USER_HOMOLOGATION = "miguel.ayala";
-	private static final String TEST_PASSWORD_HOMOLOGATION = "ojzwjyb";
+	private static final String TEST_PASSWORD_HOMOLOGATION = "password";
 
 	//usuario y password base de datos 'test' para producción
 	private static final String TEST_USER_PRODUCTION = "userdd";
