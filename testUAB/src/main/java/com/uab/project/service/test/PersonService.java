@@ -8,6 +8,7 @@ import com.uab.project.config.exception.ResourceException.ResponseCode;
 import com.uab.project.model.test.PersonModel;
 import com.uab.project.model.test.dto.PersonDTO;
 import com.uab.project.repository.test.PersonRepository;
+import com.uab.project.utils.DateUtils;
 
 import static com.uab.project.utils.CheckObject.isNull;
 import static com.uab.project.utils.CheckObject.isNullOrEmpty;
@@ -37,8 +38,9 @@ public class PersonService {
 		return count > 0;
 	}
 	
-	public PersonModel validate(PersonDTO personDto) {
-		if (!isNull(personDto.getId()))
+	public PersonModel validate(PersonDTO personDto, boolean create) {
+		
+		if (create && !isNull(personDto.getId()))
 			throw new ResourceException(ResponseCode.BAD_PERSON, "Id debe ser nulo.");
 		
 		if (isNullOrEmpty(personDto.getFirstName()))
@@ -53,6 +55,9 @@ public class PersonService {
 		if (isNullOrEmpty(personDto.getBirthDate()))
 			throw new ResourceException(ResponseCode.BAD_PERSON_BIRTHDATE, "Fecha de cumpleaños es obligatório.");
 		
+		if (isNull(DateUtils.dateConvert(personDto.getBirthDate(), "dd/MM/yyyy")))
+			throw new ResourceException(ResponseCode.BAD_PERSON_BIRTHDATE, "Fecha en otro formato.");
+		
 		if (isNullOrEmpty(personDto.getPhone()))
 			throw new ResourceException(ResponseCode.BAD_PERSON_PHONE, "Teléfono es obligatório.");
 		
@@ -61,6 +66,8 @@ public class PersonService {
 	}
 	
 	public PersonDTO getDto(PersonModel person) {
+		if(isNull(person))
+			throw new ResourceException(ResponseCode.BAD_PERSON, "Persona no encontrada.");
 		
 		PersonDTO dto = new PersonDTO(person);
 		
@@ -69,6 +76,7 @@ public class PersonService {
 
 	public List<PersonDTO> listPerson() {
 		List<PersonDTO> listDTO = new ArrayList<PersonDTO>();
+		
 		List<Object[]> list = personRepository.listPerson();
 		list.forEach(object->{
 			PersonDTO p = new PersonDTO(object);

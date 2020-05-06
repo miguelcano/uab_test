@@ -19,19 +19,18 @@ import com.uab.project.config.ConstantsDB;
 
 @Configuration
 @EnableJpaRepositories(
-		basePackages = "com.uab.project.repository.test", 
-		entityManagerFactoryRef = "testEntityManager", 
-		transactionManagerRef = "testTransactionManager"
+		basePackages = "com.uab.project.repository.test2", 
+		entityManagerFactoryRef = "test2EntityManager", 
+		transactionManagerRef = "test2TransactionManager"
 		)
 
-public class TestConfig {
+public class Test2Config {
 
-	@Primary
 	@Bean
-	public LocalContainerEntityManagerFactoryBean testEntityManager() {
+	public LocalContainerEntityManagerFactoryBean test2EntityManager() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(testDataSource());
-		em.setPackagesToScan(new String[] {"com.uab.project.model.test"});
+		em.setDataSource(test2DataSource());
+		em.setPackagesToScan(new String[] {"com.uab.project.model.test2"});
 
 		HibernateJpaVendorAdapter vendorAdapter= new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
@@ -46,31 +45,28 @@ public class TestConfig {
 		return em;
 	}
 
-	@Primary
 	@Bean
-	public DataSource testDataSource() {
+	public DataSource test2DataSource() {
 		DriverManagerDataSource dataSource= new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		dataSource.setUrl("jdbc:sqlserver://"+ConstantsDB.getIpDb()+";databaseName=Test");
-		dataSource.setUsername(ConstantsDB.getTestUser());
-		dataSource.setPassword(ConstantsDB.getTestPassword());
+		dataSource.setUsername(ConstantsDB.getTest2User());
+		dataSource.setPassword(ConstantsDB.getTest2Password());
 		
 		return dataSource;
 	}
 	
 	@Bean
-	@Primary
-	public PlatformTransactionManager testTransactionManager() {
+	public PlatformTransactionManager test2TransactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(testEntityManager().getObject());
+		transactionManager.setEntityManagerFactory(test2EntityManager().getObject());
 		return transactionManager;
 	}
 	
-	@Primary
-	@Bean(name="testTransactionTemplate")
-	public TransactionTemplate testTransactionTemplate() {
+	@Bean(name="test2TransactionTemplate")
+	public TransactionTemplate test2TransactionTemplate() {
 		TransactionTemplate transactionTemplate = new TransactionTemplate();
-		transactionTemplate.setTransactionManager(testTransactionManager());
+		transactionTemplate.setTransactionManager(test2TransactionManager());
 		return transactionTemplate;
 	}
 	
